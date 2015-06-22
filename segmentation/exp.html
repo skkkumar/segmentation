@@ -80,11 +80,22 @@
 <br>
 <hr>
 
+<br>
+<br>
+Problem : Earlier For segmentation. We quantized the image to a specific bin size and later segmented it in to equal bin size. This had a disadvantage that the objects was colored to be the at different depth (if the object is close / big). So, instead of seeing in equal sized bins, we convert into bin edges according to this distribution.
 
 
+Steps:
+1) Compute the histogram of the depth image
+2) Normalize the image from 0 - 1.
+3) calculate the cumulative distibution of the histogram.
+4) On the cumulative distribution consider the depths at the splits 0.1, 0.2, 0.3, ... 1 (incase of 10 bins). Note : Most of the bin edges are located at far away points.
+5) Now, I use these bins for creating histogram and for segmentation. The result of this is shown below where you can notice tiger which will be the independent moving object to be detected as a complete depth. I even tested with objects closer (40cm).
+
+<hr>
 Frame number : <input type="text" value="1" id="frameno"> <input type="button" onclick="updateImage(-1)" value="<"> <input type="button" onclick="updateImage(1)" value=">"><h4> Please use the Left and Right Arrow key on your keyboard to navigate.<h4>
 <br>
-Browse through the images with the navigation buttons. To straight away go to a specific frame, enter the frame number (1-647) and press the next button. 
+Browse through the images with the navigation buttons. To straight away go to a specific frame, enter the frame number (1-50) and press the next button. 
 
 <hr>
 
